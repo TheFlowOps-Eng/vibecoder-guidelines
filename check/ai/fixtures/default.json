@@ -1,0 +1,27 @@
+{
+  "findings": [
+    {
+      "rule": "ai-link-affordance-intent",
+      "severity": "warn",
+      "message": "MOCK: contact tel: link carries data-ohw-href-key with no role — a fixed link; add data-ohw-role=\"button\" + data-ohw-drag-disabled=\"true\"",
+      "file": "src/components/sections/Contact/Contact.tsx",
+      "line": 42
+    },
+    {
+      "rule": "ai-should-be-editable",
+      "severity": "warn",
+      "message": "MOCK: hardcoded opening-hours copy is not keyed — invisible to the AI feature",
+      "file": "src/app/page.tsx",
+      "line": 88
+    }
+  ],
+  "triage": [
+    {
+      "rule": 12,
+      "file": "src/styles/globals.css",
+      "line": 42,
+      "verdict": "real",
+      "note": "MOCK: literal hex on a brand-adjacent token, no var() route"
+    }
+  ]
+}

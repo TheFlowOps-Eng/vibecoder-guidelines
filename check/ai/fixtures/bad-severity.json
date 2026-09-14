@@ -1,0 +1,19 @@
+{
+  "findings": [
+    {
+      "rule": "ai-brand-var-dead-routing",
+      "severity": "error",
+      "message": "MOCK: model returned severity=error — the runner must clamp this to warn (AI findings are advisory)",
+      "file": "src/components/Hero.tsx",
+      "line": 10
+    }
+  ],
+  "triage": [
+    {
+      "rule": 13,
+      "file": null,
+      "verdict": "definitely-wrong-verdict",
+      "note": "MOCK: invalid verdict — the runner must coerce this to uncertain"
+    }
+  ]
+}

@@ -1,0 +1,3 @@
+{
+  "unexpected": "MOCK: neither findings nor triage arrays — the runner must survive this shape and report zero findings, not crash"
+}
