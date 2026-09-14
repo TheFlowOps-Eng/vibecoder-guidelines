@@ -4,9 +4,10 @@ Everything needed to build a template that the OhhWells canvas editor and the AI
 
 | Read | When |
 |---|---|
-| [1-SETUP.md](1-SETUP.md) | Starting a template: copy the starter, run it, configure env and deploy. |
+| [1-SETUP.md](1-SETUP.md) | Starting a template: copy `starter/`, run it, configure env, publish. |
+| [starter/](starter/) | The platform's starter template, synced automatically from the OhhWells templates repo. Copy it; do not edit it here. |
 | [2-CONVENTIONS.md](2-CONVENTIONS.md) | Writing any component: the `data-ohw-*` contract, keys, sections, links, brand tokens, forms, maps, carousels. |
-| [3-CHECKS.md](3-CHECKS.md) | Before every PR: build, the convention checker, the AI review (with your own Anthropic key), CI. |
+| [3-CHECKS.md](3-CHECKS.md) | Before publishing: build, the convention checker, the AI review (with your own Anthropic key), CI. |
 | [check/](check/) | The checker itself. Deterministic rules 1–24 plus the AI review runner. Zero npm dependencies, Node 18+. |
 
 ## The one idea behind every rule
@@ -17,14 +18,14 @@ The checker exists because these failures never show up as broken builds. They s
 
 ## How this repo is used
 
-- **This repo is the single source of truth** for the conventions and the checker. The templates repo (`TheFlowOps-Eng/vibe-coded-templates`) carries no copy; its CI checks this repo out and runs `check/` on every pull request.
-- **Clone it next to your templates folder** and run the checker from the folder that contains your template(s):
+You have your template folder. This repo is the rulebook and the checker for it; it is the same tool the OhhWells team runs over the platform's own templates, so passing it here means passing it there.
 
 ```bash
-git clone https://github.com/TheFlowOps-Eng/vibecoder-guidelines.git
-cd vibe-coded-templates            # or any folder that contains your template folder(s)
-node ../vibecoder-guidelines/check/run.mjs my-template
+git clone https://github.com/TheFlowOps-Eng/vibecoder-guidelines.git   # anywhere, once
+cd my-template                                                          # your template
+node /path/to/vibecoder-guidelines/check/run.mjs                        # checks this template
 ```
 
-- It is public and read-only: anyone can read and clone, only maintainers can change it. If a rule flags something your template genuinely satisfies, open an issue with the finding and the source.
-- Rule numbers 1–24 in these docs are the checker's rule numbers (`check/rules/NN-*.mjs`). The reference implementation of every pattern is `ohhwells-starter/` in the templates repo.
+- Public and read-only: anyone can read and clone, only the OhhWells team can change it. If a rule flags something your template genuinely satisfies, open an issue with the finding and the source; do not work around it.
+- Rule numbers 1–24 in these docs are the checker's rule numbers (`check/rules/NN-*.mjs`).
+- Run it again after every change; it takes about a second and needs no install.

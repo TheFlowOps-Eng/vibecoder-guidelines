@@ -1,0 +1,104 @@
+.services-grid {
+  background: var(--brand-surface);
+  padding: var(--spacing-section) 0;
+}
+
+.services-grid__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 4rem;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.services-grid__eyebrow {
+  font-family: var(--brand-font-body);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--brand-accent);
+  margin-bottom: 1.5rem;
+}
+
+.services-grid__heading {
+  font-family: var(--brand-font-heading);
+  font-size: clamp(2rem, 3.5vw, 2.75rem);
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  color: var(--brand-text);
+}
+
+.services-grid__sub {
+  font-family: var(--brand-font-body);
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--brand-text-muted);
+  max-width: 340px;
+  font-weight: 300;
+}
+
+.services-grid__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  border: 1px solid var(--brand-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.services-grid__card {
+  padding: 2.5rem;
+  border-right: 1px solid var(--brand-border);
+  border-bottom: 1px solid var(--brand-border);
+  background: var(--brand-background);
+  transition: background 0.2s;
+}
+
+.services-grid__card:hover {
+  background: var(--brand-surface);
+}
+
+.services-grid__card:nth-child(2n) {
+  border-right: none;
+}
+
+.services-grid__card:nth-last-child(-n + 2) {
+  border-bottom: none;
+}
+
+.services-grid__icon {
+  width: 2rem;
+  height: 2rem;
+  margin-bottom: 1rem;
+}
+
+.services-grid__title {
+  font-family: var(--brand-font-heading);
+  font-size: 1.3rem;
+  letter-spacing: -0.02em;
+  color: var(--brand-text);
+  margin-bottom: 0.75rem;
+}
+
+.services-grid__desc {
+  font-family: var(--brand-font-body);
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: var(--brand-text-muted);
+  font-weight: 300;
+}
+
+@media (max-width: 768px) {
+  .services-grid__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .services-grid__card {
+    border-right: none;
+  }
+
+  .services-grid__card:not(:last-child) {
+    border-bottom: 1px solid var(--brand-border);
+  }
+}

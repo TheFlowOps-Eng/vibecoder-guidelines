@@ -13,8 +13,8 @@ From `@ohhwells/conventions` (installed in the starter under `node_modules/@ohhw
 - **Section components receive content as typed props. They never fetch it, never import it, never hardcode it.** Literal display text, image URLs or link targets inside JSX belong in a content file.
 - Content: one file per page in `src/content/<page>.ts`. Each section entry is `{ layout: '<key>' as const, content: { … } satisfies <LayoutContent> }`. The page resolves `XLayouts[content.x.layout].component` and renders it with `content` and a `sectionId`.
 - Sections: `src/components/sections/<Type>/` with `<Type>.types.ts` (shared fields), `index.ts` (the layout registry, `{ key: { component, defaults } }`), and `layouts/<TypeLayout>/` holding `.tsx`, `.types.ts` (extends the shared type, never duplicates its fields), `.defaults.ts`, `.styles.css`.
-- Layout keys come from `node_modules/@ohhwells/conventions/templates/layout-archetypes.md`. Do not invent keys. Shared fields of an archetype must stay as defined; if a layout needs more (a CTA, an image), add them as **optional** fields on the layout's own type, which is what the starter's `CTACentered` does, and say so in the PR.
-- **Start a new section from the starter's own sections** (`ohhwells-starter/src/components/sections/*`): they carry every tag this document requires. The package's `templates/reference-layouts/` are structure-only: no `data-ohw-*` attributes, no `sectionId` prop, raw `<img>`. If you copy one, you tag it from scratch following §2–§5. (The `ohhwells-scaffold` CLI mentioned in that package's docs is not shipped in version 1.0.2.)
+- Layout keys come from `node_modules/@ohhwells/conventions/templates/layout-archetypes.md`. Do not invent keys. Shared fields of an archetype must stay as defined; if a layout needs more (a CTA, an image), add them as **optional** fields on the layout's own type, which is what the starter's `CTACentered` does.
+- **Start a new section from the starter's own sections** (`starter/src/components/sections/*` in this repo, or the same folder in your copy): they carry every tag this document requires. The package's `templates/reference-layouts/` are structure-only: no `data-ohw-*` attributes, no `sectionId` prop, raw `<img>`. If you copy one, you tag it from scratch following §2–§5. (The `ohhwells-scaffold` CLI mentioned in that package's docs is not shipped in version 1.0.2.)
 - Adding a section to a page whose content type lives in `src/types/content.ts`: extend that page's type with a `{ layout, content }` entry and add the data in `src/content/<page>.ts`; the page passes `content` and a `sectionId`.
 - App Router only (`src/app/`). No `pages/`.
 - No hardcoded colours or font names where a token exists (see §8).
@@ -275,7 +275,7 @@ Dual-purpose attributes you **do** author, for their documented purpose only: `d
 | 17 | Bridge-injected attribute or `__ohw_` key authored | error |
 | 18 | Root layout: bridge styles, `<Suspense>` around the bridge, `#ohw-loader` | error / error / warn |
 | 19 | `.env.example` missing or silent on `NEXT_PUBLIC_FLOWOPS_API_URL` | warn |
-| 20 | No `@ohhwells/bridge` dependency; pin behind the fleet | error / warn |
+| 20 | No `@ohhwells/bridge` dependency; pin behind sibling templates | error / warn |
 | 21 | Map-named key with a non-`map` mode; bracket map placeholder copy | error |
 | 22 | Key/href-key/section/`ohwKey`/`sectionId` in a `[param]` route not interpolating the param | error |
 | 23 | Href-keyed link in a non-chrome file with no role (non-social) | error |

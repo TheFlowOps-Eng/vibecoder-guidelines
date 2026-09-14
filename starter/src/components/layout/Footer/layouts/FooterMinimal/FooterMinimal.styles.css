@@ -1,0 +1,112 @@
+.footer-minimal {
+  background: var(--brand-surface);
+  border-top: 1px solid var(--brand-border);
+  padding: 3.5rem 0;
+}
+
+.footer-minimal__inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.footer-minimal__logo {
+  font-family: var(--brand-font-heading);
+  font-size: 1.2rem;
+  color: var(--brand-text);
+  letter-spacing: -0.02em;
+  display: inline-flex;
+  align-items: center;
+  max-width: min(200px, 50vw);
+}
+
+.footer-minimal__logo img,
+.footer-minimal__logo-img {
+  height: 1.5rem;
+  width: auto;
+  max-width: 100%;
+  max-height: 1.5rem;
+  object-fit: contain;
+}
+
+.footer-minimal__logo img:not([src]),
+.footer-minimal__logo img[src=''] {
+  display: none;
+}
+
+.footer-minimal__logo:has(img[src]:not([src=''])) [data-ohw-key='footer-logo-text'] {
+  display: none;
+}
+
+.footer-minimal__tagline {
+  font-family: var(--brand-font-body);
+  font-size: 0.8rem;
+  color: var(--brand-text-muted);
+  font-weight: 300;
+  margin-top: 0.25rem;
+}
+
+.footer-minimal__nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: 2rem;
+  row-gap: 0.5rem;
+}
+
+.footer-minimal__heading {
+  flex: 1 0 100%;
+  font-family: var(--brand-font-body);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--brand-text);
+  letter-spacing: 0.02em;
+  margin: 0;
+  opacity: 0.82;
+}
+
+.footer-minimal__link {
+  font-family: var(--brand-font-body);
+  font-size: 0.85rem;
+  color: var(--brand-text-muted);
+  font-weight: 300;
+  transition: color 0.15s;
+}
+
+.footer-minimal__link:hover {
+  color: var(--brand-text);
+}
+
+.footer-minimal__socials {
+  display: flex;
+  gap: 1.25rem;
+}
+
+.footer-minimal__social {
+  font-family: var(--brand-font-body);
+  font-size: 0.78rem;
+  color: var(--brand-text-muted);
+  font-weight: 300;
+  text-transform: capitalize;
+  transition: color 0.15s;
+}
+
+.footer-minimal__social:hover {
+  color: var(--brand-text);
+}
+
+.footer-minimal__copyright {
+  font-family: var(--brand-font-body);
+  font-size: 0.78rem;
+  color: var(--brand-text-muted);
+  font-weight: 300;
+}
+
+@media (max-width: 768px) {
+  .footer-minimal__inner {
+    flex-direction: column;
+    text-align: center;
+  }
+}

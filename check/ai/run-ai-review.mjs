@@ -8,12 +8,13 @@
  * should-this-be-editable, brand routing that never reaches pixels, and the rest of the class
  * of problems a regex can't judge.
  *
- * Run from the folder that contains your template folder(s), like the deterministic checker:
+ * Run from inside your template folder (reviews that template) or from a folder that contains
+ * template folders (all, or the ones named), like the deterministic checker:
  *
- *   node ../vibecoder-guidelines/check/ai/run-ai-review.mjs my-template     one template, live API
- *   node ../vibecoder-guidelines/check/ai/run-ai-review.mjs --mock          every template, fixture responses
- *   node ../vibecoder-guidelines/check/ai/run-ai-review.mjs --mock --fixture bad-severity my-template
- *   node ../vibecoder-guidelines/check/ai/run-ai-review.mjs --json          machine readable
+ *   node <clone>/vibecoder-guidelines/check/ai/run-ai-review.mjs            this template, live API
+ *   node <clone>/vibecoder-guidelines/check/ai/run-ai-review.mjs --mock     fixture responses, no API
+ *   node <clone>/vibecoder-guidelines/check/ai/run-ai-review.mjs --mock --fixture bad-severity
+ *   node <clone>/vibecoder-guidelines/check/ai/run-ai-review.mjs --json     machine readable
  *   --model <id>          override the model (default claude-sonnet-5)
  *   --effort <level>      low | medium | high | xhigh | max (default high)
  *   --comment-out <file>  write the PR-comment markdown body

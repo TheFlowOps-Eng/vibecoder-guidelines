@@ -1,36 +1,36 @@
 # 3 — Testing and checks
 
-Run in this order before every PR. Steps 1–4 cost nothing; step 5 costs API credits.
+Run in this order before publishing. Steps 1–4 cost nothing; step 5 costs API credits.
 
-All commands assume this repo is cloned next to your templates folder and that you run the checks from the folder that **contains** your template (the checker discovers template folders under the current directory).
+All commands run from **inside your template folder**. `$GUIDE` stands for wherever you cloned this repo (for example `export GUIDE=~/vibecoder-guidelines`).
 
 ```bash
 cd my-template
-npm run build                                              # 1. production build
-npm run lint                                               # 2. next lint
-cd ..
-node ../vibecoder-guidelines/check/run.mjs my-template     # 3. convention checker — must show 0 errors
-node ../vibecoder-guidelines/check/ai/run-ai-review.mjs --mock my-template   # 4. AI review plumbing, no API calls
-node ../vibecoder-guidelines/check/ai/run-ai-review.mjs my-template          # 5. live AI review (optional; key stored once with --set-key)
+npm run build                                   # 1. production build
+npm run lint                                    # 2. next lint
+node $GUIDE/check/run.mjs                       # 3. convention checker — must show 0 errors
+node $GUIDE/check/ai/run-ai-review.mjs --mock   # 4. AI review plumbing, no API calls
+node $GUIDE/check/ai/run-ai-review.mjs          # 5. live AI review (optional; key stored once with --set-key)
 ```
 
 ---
 
 ## The convention checker (`check/run.mjs`)
 
-Static audit of a template's source against the rules in [2-CONVENTIONS.md](2-CONVENTIONS.md). Reads files only: no dev server, no build, no network, no npm install. The whole fleet takes a couple of seconds.
+Static audit of a template's source against the rules in [2-CONVENTIONS.md](2-CONVENTIONS.md). Reads files only: no dev server, no build, no network, no npm install. About a second per template.
 
 ### What it scans
 
-- A "template" is any top-level folder under the root that contains a `src/` directory (dot-folders are skipped). The root is the **current working directory** by default; `OHW_TEMPLATES_ROOT=/path/to/parent` overrides it. Running from a folder with no template subfolders prints a hint and exits 1.
+- Run from inside a template folder (one with `src/` and `package.json`), it checks that template. Run from a folder that contains template folders, it checks all of them, or the ones you name. `OHW_TEMPLATES_ROOT=/path/to/folder` overrides both. Anywhere else it prints a hint and exits 1.
 - It reads `src/**/*.tsx|jsx` for markup, `src/**/*.css` and `src/**/*.ts` for tokens, `src/app/**/page.tsx` and `src/app/layout.tsx` for page-level rules, plus `package.json` and `.env.example`. Duplicate-key checks are limited to files reachable by import from `src/app`, so dead components cannot produce false duplicates.
+- Rule 20 compares your `@ohhwells/bridge` pin with other template folders next to yours. With no siblings it has nothing to compare and stays quiet; keep the pin at the version the team names.
 
 ### CLI
 
 | Invocation | Effect |
 |---|---|
-| `node check/run.mjs` | every template |
-| `node check/run.mjs my-template other-template` | only these |
+| `node $GUIDE/check/run.mjs` | the template you are in (or every template under the current folder) |
+| `node $GUIDE/check/run.mjs my-template other-template` | only these, by folder name |
 | `--errors` | hide warnings |
 | `--json` | machine-readable: `[{ template, findings: [{ rule, severity, message, file, line }] }]` |
 | `--rule 9,12` | only these rule numbers (an unknown number aborts with the list of known rules) |
@@ -41,7 +41,7 @@ Exit code is `1` when any template has an **error**-level finding, `0` otherwise
 ### Reading the output
 
 ```
-✓ ohhwells-starter
+✓ starter
 
 ✗ my-template  2 error(s), 5 warning(s)
     rule 8   no `data-ohw-role="button"` anywhere — style alignment and generated CTA radius break
@@ -59,7 +59,7 @@ Every rule was calibrated against real findings and known false positives were r
 
 ### What it cannot see
 
-It reads source, so it cannot judge runtime behaviour (does re-applying content stay idempotent, does the saved section order apply, is the socials row recognised) or intent (should this text be editable, is this link a button). Intent is the AI review's job below; runtime is verified in the canvas editor after a deploy. Internal team members can run any template against a local backend and editor with `local-testing/run-template.sh <template>` (see `local-testing/README.md` at the workspace root); never run a deploy or publish against the local backend.
+It reads source, so it cannot judge runtime behaviour (does re-applying content stay idempotent, does the saved section order apply, is the socials row recognised) or intent (should this text be editable, is this link a button). Intent is the AI review's job below; runtime is verified by opening the deployed template in the canvas editor and editing every section once.
 
 ---
 
@@ -72,7 +72,7 @@ Judgement calls the regexes cannot make, run by Claude. Per template it (a) runs
 ### Mock mode (free, run it always)
 
 ```bash
-node ../vibecoder-guidelines/check/ai/run-ai-review.mjs --mock my-template
+node $GUIDE/check/ai/run-ai-review.mjs --mock
 ```
 
 Uses `check/ai/fixtures/default.json` instead of the API (or `--fixture bad-severity` / `--fixture malformed` to exercise the sanitizer). No key needed, zero cost. It proves the checker integration, bundling and reporting work; the findings it prints are the fixture's, not a review of your template.
@@ -83,7 +83,7 @@ Uses `check/ai/fixtures/default.json` instead of the API (or `--fixture bad-seve
 2. Store it once. The prompt hides what you paste, and the key is written to `~/.ohhwells/ai-review.json` readable only by you (the same folder the deploy CLI uses for its login). Nothing goes into the repo or a template `.env`.
 
 ```bash
-node ../vibecoder-guidelines/check/ai/run-ai-review.mjs --set-key
+node $GUIDE/check/ai/run-ai-review.mjs --set-key
 # Paste your Anthropic API key (input is hidden): ████
 # Saved to ~/.ohhwells/ai-review.json (readable by you only). Live reviews will use it from now on.
 ```
@@ -91,7 +91,7 @@ node ../vibecoder-guidelines/check/ai/run-ai-review.mjs --set-key
 3. Review:
 
 ```bash
-node ../vibecoder-guidelines/check/ai/run-ai-review.mjs my-template
+node $GUIDE/check/ai/run-ai-review.mjs
 ```
 
 - `--forget-key` deletes the stored key.
@@ -99,13 +99,13 @@ node ../vibecoder-guidelines/check/ai/run-ai-review.mjs my-template
 - With no key anywhere the script stops before any call and prints the three options (`--set-key`, the env var, `--mock`). Exit code 1.
 - The key only ever leaves your machine in the request to `api.anthropic.com`. Never commit it and never paste it into a template file.
 
-Cost: one call per template, default model `claude-sonnet-5` with adaptive thinking, `max_tokens` 32000, effort `high`. Observed cost in the team's live runs was roughly $0.15–0.30 per template. Review one template at a time; a bare invocation reviews the entire fleet.
+Cost: one call per template, default model `claude-sonnet-5` with adaptive thinking, `max_tokens` 32000, effort `high`. Observed cost in the team's live runs was roughly $0.15–0.30 per template. From inside your template folder it reviews only that template; from a folder of templates a bare invocation reviews all of them.
 
 ### CLI
 
 | Flag | Effect |
 |---|---|
-| `my-template …` or `--templates a,b` | which templates (default: all) |
+| `my-template …` or `--templates a,b` | which templates, by folder name (default: the one you are in, or all) |
 | `--mock` | fixture responses, no API |
 | `--fixture <name>` | fixture file to use with `--mock` (`check/ai/fixtures/<name>.json`) |
 | `--model <id>` | model override (default `claude-sonnet-5`) |
@@ -136,25 +136,24 @@ Every file under `src/` matching `.ts|.tsx|.js|.jsx|.css` whose content contains
 
 ---
 
-## CI
+## Using it in your own CI
 
-### In the templates repo (`TheFlowOps-Eng/vibe-coded-templates`)
+The checker is plain Node with no dependencies, so any CI can run it. Clone this repo in the job and run the checker from your template folder; `--gha` gives GitHub Actions annotations and a step summary, and the exit code fails the job on errors:
 
-Two workflows check this repo out (into a dot-folder, at `main`) and run the checker from the templates workspace. At the time of writing both live on the `feat/ai-template-review` branch there and are not yet on its `main`; until that merge lands, run the checks locally.
+```yaml
+- uses: actions/checkout@v4
+- uses: actions/checkout@v4
+  with:
+    repository: TheFlowOps-Eng/vibecoder-guidelines
+    path: .guidelines          # a dot-folder, so the checker never mistakes it for a template
+- uses: actions/setup-node@v4
+  with:
+    node-version: '22'
+- run: node .guidelines/check/run.mjs --gha
+```
 
-**`template-checks.yml` — the PR gate**
+For the live AI review in CI, add `ANTHROPIC_API_KEY` as a repository secret and pass it as an environment variable; keep it out of the repo itself.
 
-- Trigger: every `pull_request` into `main`.
-- Runs the checker with `--gha` on Node 22 against the **whole fleet**, using this repo's `main` rules.
-- Errors become inline PR annotations and fail the check. Warnings annotate and pass. The per-template breakdown is in the job's step summary.
+## For the OhhWells team
 
-**`ai-template-review.yml` — manual, advisory**
-
-- Trigger: `workflow_dispatch` only (Actions tab → "AI template review" → Run workflow). Never on PRs.
-- Inputs: `branch` (default `main`), `templates` (comma-separated folders, empty = all), `effort` (default `high`), `mock` (**default true**; untick deliberately for a live run).
-- Needs the `ANTHROPIC_API_KEY` repository secret for live runs: GitHub repo → Settings → Secrets and variables → Actions → New repository secret, name `ANTHROPIC_API_KEY`. Mock runs need none.
-- A red run means an operational problem (missing or invalid key, API error), never bad templates. The report is the run's step summary.
-
-### In this repo
-
-`fleet-check.yml` runs on every push to `main`, every pull request and on demand. It syntax-checks every module and validates the fixtures, then checks out the (private) templates repo and runs the checker and the mock AI review over the whole fleet, so a rule change cannot land while it breaks a template. The fleet job needs the `TEMPLATES_REPO_TOKEN` secret (read access to vibe-coded-templates); without it, or on a pull request from a fork, it is skipped rather than failed.
+The platform's own templates repo runs exactly this checker on every pull request and the AI review on demand, both by checking this repo out at `main`. Rules and docs change only here; a rule change shows up on the next pull request there. `starter/` is written only by the hourly sync workflow (`.github/workflows/sync-starter.yml`); edit the starter in the templates repo, never here.

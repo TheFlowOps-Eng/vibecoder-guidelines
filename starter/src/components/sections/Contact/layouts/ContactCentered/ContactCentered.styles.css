@@ -1,0 +1,79 @@
+.contact-centered {
+  background: var(--brand-background);
+  padding: var(--spacing-section) 0;
+}
+
+.contact-centered__header {
+  margin-bottom: 3rem;
+  max-width: 600px;
+}
+
+.contact-centered__heading {
+  font-family: var(--brand-font-heading);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  letter-spacing: -0.03em;
+  color: var(--brand-text);
+  margin-bottom: 1rem;
+  line-height: 1.1;
+}
+
+.contact-centered__sub {
+  font-family: var(--brand-font-body);
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  color: var(--brand-text-muted);
+  font-weight: 300;
+}
+
+/* Block flow, not column flex: the editor's form chrome rewrites flex alignment and
+   flex-basis on flex forms (fields shrink-wrap or inflate); owl spacing is immune. */
+.contact-centered__form {
+  max-width: 560px;
+}
+
+.contact-centered__form > * + * {
+  margin-top: 1.25rem;
+}
+
+.contact-centered__input {
+  font-family: var(--brand-font-body);
+  font-size: 0.9375rem;
+  font-weight: 300;
+  color: var(--brand-text);
+  background: var(--brand-surface);
+  border: 1px solid var(--brand-border);
+  border-radius: var(--radius-md);
+  padding: 0.875rem 1rem;
+  outline: none;
+  width: 100%;
+  transition: border-color 0.15s;
+}
+
+.contact-centered__input:focus {
+  border-color: var(--brand-accent);
+}
+
+.contact-centered__input--textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.contact-centered__btn {
+  display: inline-block;
+  font-family: var(--brand-font-body);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 0.875rem 2rem;
+  background: var(--brand-primary);
+  color: var(--brand-on-primary);
+  cursor: pointer;
+  transition: opacity 0.15s;
+  width: fit-content;
+}
+
+.contact-centered__btn:hover {
+  opacity: 0.88;
+}

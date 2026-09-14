@@ -1,0 +1,104 @@
+.testimonials-grid {
+  background: var(--brand-primary);
+  padding: var(--spacing-section) 0;
+}
+
+.testimonials-grid__header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.testimonials-grid__heading {
+  font-family: var(--brand-font-heading);
+  font-size: clamp(2rem, 3.5vw, 2.75rem);
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  color: var(--brand-on-primary);
+  margin-bottom: 1rem;
+}
+
+.testimonials-grid__sub {
+  font-family: var(--brand-font-body);
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--brand-on-primary-muted);
+  font-weight: 300;
+}
+
+.testimonials-grid__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.testimonials-grid__card {
+  background: var(--brand-primary-surface);
+  border: 1px solid var(--brand-primary-border);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem;
+}
+
+.testimonials-grid__quote {
+  font-family: var(--brand-font-body);
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--brand-on-primary-muted);
+  font-weight: 300;
+  margin-bottom: 2rem;
+  font-style: italic;
+}
+
+.testimonials-grid__author {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+}
+
+.testimonials-grid__avatar,
+.testimonials-grid__photo {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.testimonials-grid__avatar {
+  background: var(--brand-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--brand-font-body);
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--brand-on-primary);
+  letter-spacing: 0.05em;
+}
+
+.testimonials-grid__photo {
+  object-fit: cover;
+}
+
+.testimonials-grid__name {
+  font-family: var(--brand-font-body);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--brand-on-primary);
+}
+
+.testimonials-grid__role {
+  font-family: var(--brand-font-body);
+  font-size: 0.78rem;
+  color: var(--brand-on-primary-faint);
+  font-weight: 300;
+}
+
+/* The initials circle doubles as the photo slot: picking an image writes an
+   inline background onto it, and the letters then read as noise over the face. */
+.testimonials-grid__avatar {
+  background-size: cover;
+  background-position: center;
+}
+
+.testimonials-grid__avatar[style*="background-image"] {
+  color: transparent;
+}

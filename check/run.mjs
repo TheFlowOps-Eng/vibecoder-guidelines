@@ -7,14 +7,15 @@
  * markup the model cannot edit, and it fails silently rather than erroring. The rules read the
  * source (no dev server, no build) and report which templates break which numbered rule.
  *
- * Run it from the folder that contains your template folder(s) (or set OHW_TEMPLATES_ROOT):
+ * Run it from inside your template folder (checks that template), or from a folder that
+ * contains template folders (checks all of them, or the ones named); OHW_TEMPLATES_ROOT overrides.
  *
- *   node ../vibecoder-guidelines/check/run.mjs                  every template
- *   node ../vibecoder-guidelines/check/run.mjs my-template      one template
- *   node ../vibecoder-guidelines/check/run.mjs --errors         hide warnings
- *   node ../vibecoder-guidelines/check/run.mjs --json           machine readable
- *   node ../vibecoder-guidelines/check/run.mjs --rule 9,12      only these rules
- *   node ../vibecoder-guidelines/check/run.mjs --gha            GitHub Actions annotations + step summary
+ *   node <clone>/vibecoder-guidelines/check/run.mjs                  this template / every template
+ *   node <clone>/vibecoder-guidelines/check/run.mjs my-template      one named template
+ *   node <clone>/vibecoder-guidelines/check/run.mjs --errors         hide warnings
+ *   node <clone>/vibecoder-guidelines/check/run.mjs --json           machine readable
+ *   node <clone>/vibecoder-guidelines/check/run.mjs --rule 9,12      only these rules
+ *   node <clone>/vibecoder-guidelines/check/run.mjs --gha            GitHub Actions annotations + step summary
  *
  * Exits 1 if any error-level violation is found. Warnings never fail the run: they degrade the
  * experience rather than break it, and some are judgement calls.
@@ -83,8 +84,8 @@ export async function main() {
   const results = await runChecks(only, {ruleFilter})
 
   if (results.length === 0) {
-    console.error(`No template folders (a subfolder with src/) found under ${ROOT}.`)
-    console.error('Run from the folder that CONTAINS your template folder, or set OHW_TEMPLATES_ROOT to it.')
+    console.error(`No template found: ${ROOT} is not a template (no src/ + package.json) and has no template subfolders.`)
+    console.error('Run from inside your template folder, or set OHW_TEMPLATES_ROOT to the folder that contains it.')
     process.exitCode = 1
     return
   }

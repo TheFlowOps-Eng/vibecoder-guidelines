@@ -1,10 +1,18 @@
-import {readdirSync, readFileSync, statSync} from 'node:fs'
-import {join, sep} from 'node:path'
+import {existsSync, readdirSync, readFileSync, statSync} from 'node:fs'
+import {basename, dirname, join, sep} from 'node:path'
 
-/** The folder whose subfolders are templates: the current working directory by default (run the
- *  checker from the folder that contains your template folders), or OHW_TEMPLATES_ROOT. The
- *  checker itself can live anywhere — it is a separate repo, checked out wherever convenient. */
-export const ROOT = (process.env.OHW_TEMPLATES_ROOT ?? process.cwd()).replace(/\/$/, '')
+/**
+ * Where templates are, resolved from where the checker is run:
+ *  - inside a template folder (it has src/ and package.json): that one template is checked;
+ *  - inside a folder that contains template folders (the templates repo): all of them are;
+ *  - OHW_TEMPLATES_ROOT=<folder> overrides both.
+ * The checker itself lives in its own repo and can be cloned anywhere.
+ */
+const cwd = process.cwd()
+const cwdIsTemplate = !process.env.OHW_TEMPLATES_ROOT && existsSync(join(cwd, 'src')) && existsSync(join(cwd, 'package.json'))
+export const ROOT = (process.env.OHW_TEMPLATES_ROOT ?? (cwdIsTemplate ? dirname(cwd) : cwd)).replace(/\/$/, '')
+/** The template the checker was started inside, or null when run from a templates folder. */
+export const CURRENT_TEMPLATE = cwdIsTemplate ? basename(cwd) : null
 
 export function walk(dir, out = [], test = /\.(tsx|jsx)$/) {
   let entries
@@ -23,6 +31,7 @@ export function walk(dir, out = [], test = /\.(tsx|jsx)$/) {
 }
 
 export function listTemplates() {
+  if (CURRENT_TEMPLATE) return [CURRENT_TEMPLATE]
   return readdirSync(ROOT, {withFileTypes: true})
     .filter((e) => e.isDirectory() && !e.name.startsWith('.') && e.name !== 'node_modules' && e.name !== 'tools')
     .map((e) => e.name)
