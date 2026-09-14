@@ -9,7 +9,7 @@
 
 ## 1. Create the template from the starter
 
-`$GUIDE/starter/` is the platform's starter template. It is synced automatically from the OhhWells templates repo, so it is always the current one; pull this repo before you start. It passes every check with 0 findings and is the reference for every pattern in [2-CONVENTIONS.md](2-CONVENTIONS.md).
+`$GUIDE/starter/` is the platform's starter template. It is pushed here automatically whenever the OhhWells team changes it, so it is always the current one; pull this repo before you start. It passes every check with 0 findings and is the reference for every pattern in [2-CONVENTIONS.md](2-CONVENTIONS.md).
 
 ```bash
 cp -R $GUIDE/starter my-template      # kebab-case folder name; it becomes the template's name in the checker

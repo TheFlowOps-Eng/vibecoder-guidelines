@@ -156,4 +156,4 @@ For the live AI review in CI, add `ANTHROPIC_API_KEY` as a repository secret and
 
 ## For the OhhWells team
 
-The platform's own templates repo runs exactly this checker on every pull request and the AI review on demand, both by checking this repo out at `main`. Rules and docs change only here; a rule change shows up on the next pull request there. `starter/` is written only by the hourly sync workflow (`.github/workflows/sync-starter.yml`); edit the starter in the templates repo, never here.
+The platform's own templates repo runs exactly this checker on every pull request and the AI review on demand, both by checking this repo out at `main`. Rules and docs change only here; a rule change shows up on the next pull request there. `starter/` is written only by the templates repo's sync workflow, on every push to its `main` that touches the starter; edit the starter there, never here.
