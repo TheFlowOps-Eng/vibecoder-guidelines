@@ -18,8 +18,8 @@ export const brand: Brand = {
     navbarBackground: 'rgba(255, 255, 255, 0.85)',
   },
   fonts: {
-    heading: "'DM Serif Display', serif",
-    body: "'DM Sans', sans-serif",
+    heading: "var(--font-heading), 'DM Serif Display', serif",
+    body: "var(--font-body-local), 'DM Sans', sans-serif",
   },
   spacing: {
     section: '7rem',

@@ -11,7 +11,11 @@ const dmSerifDisplay = DM_Serif_Display({
 const dmSans = DM_Sans({
   subsets: ['latin'],
   weight: ['300', '400', '500', '600'],
-  variable: '--font-body',
+  // Not "--font-body" — BrandProvider separately writes that name for the bridge's
+  // SchedulingWidget contract, from brand.fonts.body. Reusing it here would make that write
+  // self-referential (--font-body: var(--font-body), ...), an invalid CSS cycle that drops the
+  // body font entirely.
+  variable: '--font-body-local',
   display: 'swap',
 });
 
