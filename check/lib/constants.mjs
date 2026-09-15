@@ -5,7 +5,6 @@ export const EDITABLE_MODES = new Set(['text', 'plain', 'image', 'bg-image', 'vi
 
 /** Attributes the bridge injects at runtime. A template authoring one corrupts bridge state. */
 export const RESERVED_ATTRS = [
-  'data-ohw-instance',
   'data-ohw-section-removed',
   'data-ohw-ai-generated',
   'data-ohw-ai-removed',
