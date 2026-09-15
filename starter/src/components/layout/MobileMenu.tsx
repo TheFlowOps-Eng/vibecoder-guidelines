@@ -35,7 +35,8 @@ export function MobileMenu({ items, ctaButton, open, onClose }: MobileMenuProps)
       className="mobile-menu"
       hidden={!open}
       data-ohw-nav-drawer=""
-      data-ohw-section="navbar"
+      data-ohw-section={open ? "navbar" : undefined}
+      data-ohw-instance={open ? "navbar" : undefined}
       data-ohw-section-label="Navigation"
     >
       <NavDropdownTemplate

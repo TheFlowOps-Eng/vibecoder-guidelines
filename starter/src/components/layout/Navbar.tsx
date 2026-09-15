@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import type { NavItem, LogoConfig } from "@/types/content";
 import { Wordmark, resolveLogoWordmark } from "@/components/layout/Wordmark";
@@ -31,6 +31,20 @@ function assignNavIndices(items: NavItem[]): Array<{
 
 export function Navbar({ items, logo, ctaButton }: NavbarProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  // The AI backend's navbar styling (mobile drawer background/text colour, OHH-790) only
+  // special-cases target.sectionId === "navbar" — the drawer has to report itself under that
+  // exact id, not a distinct one. But bridge's selection-outline tracking resolves an id to a
+  // rect by re-querying the DOM for `[data-ohw-instance="navbar"]` and just takes the first
+  // match in document order — so if both the header and the drawer carried that id at once, the
+  // outline would permanently pin to the header (first in the DOM) no matter which one was
+  // actually selected. Below, exactly one of the two ever carries the "navbar" id at a time — the
+  // header while the drawer is closed, the drawer while it's open — so the id stays shared (AI
+  // routing keeps working) while the DOM query used for the outline's rect stays unambiguous.
+  useEffect(() => {
+    window.dispatchEvent(new Event("resize"));
+  }, [mobileOpen]);
+
   const indexed = assignNavIndices(items);
   const wordmark = resolveLogoWordmark(logo);
 
@@ -38,7 +52,8 @@ export function Navbar({ items, logo, ctaButton }: NavbarProps) {
     <header
       className="navbar"
       data-ohw-nav-root=""
-      data-ohw-section="navbar"
+      data-ohw-section={mobileOpen ? undefined : "navbar"}
+      data-ohw-instance={mobileOpen ? undefined : "navbar"}
       data-ohw-section-label="Navigation"
     >
       <div className="navbar__inner">
