@@ -91,7 +91,7 @@ export function MobileMenu({ items, ctaButton, open, onClose }: MobileMenuProps)
             data-ohw-href-key="nav-cta-href"
             data-ohw-role="navbar-button"
             data-ohw-drag-disabled="true"
-            className="mobile-menu__cta"
+            className="mobile-menu__cta btn--primary"
             onClick={onClose}
           >
             <span data-ohw-editable="text" data-ohw-key="nav-cta-label">

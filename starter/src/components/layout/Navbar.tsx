@@ -122,7 +122,7 @@ export function Navbar({ items, logo, ctaButton }: NavbarProps) {
               data-ohw-href-key="nav-cta-href"
               data-ohw-role="navbar-button"
               data-ohw-drag-disabled="true"
-              className="navbar__cta"
+              className="navbar__cta btn--primary"
             >
               <span data-ohw-editable="text" data-ohw-key="nav-cta-label">
                 {ctaButton.label}
