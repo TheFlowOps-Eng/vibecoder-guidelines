@@ -26,6 +26,11 @@ export const RESERVED_ATTRS = [
   'data-ohw-can-drag',
   'data-ohw-item-dragging',
   'data-ohw-footer-press-drag',
+  // Repeated-item groups (item-instances.ts): stamped on detected cards/rows and their clones.
+  'data-ohw-item',
+  'data-ohw-item-clone',
+  'data-ohw-item-removed',
+  'data-ohw-item-surface',
 ]
 
 /** Bridge-written attribute families — reserved by prefix (section-styles.ts, form-fields.ts, forms.ts). */
