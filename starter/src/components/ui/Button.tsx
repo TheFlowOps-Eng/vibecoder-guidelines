@@ -14,6 +14,9 @@ interface ButtonProps {
   ohwKey?: string;
   'data-ohw-key'?: string;
   'data-ohw-editable'?: 'text' | 'plain';
+  'data-ohw-href-key'?: string;
+  'data-ohw-role'?: string;
+  'data-ohw-drag-disabled'?: string;
   'data-ohw-max-length'?: number;
 }
 

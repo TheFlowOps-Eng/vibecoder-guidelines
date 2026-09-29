@@ -51,7 +51,16 @@ export function ContactCentered({ content, sectionId }: ContactCenteredProps) {
               required={field.required}
             />
           ))}
-          <Button type="submit">{content.submitLabel}</Button>
+          <Button
+            type="submit"
+            data-ohw-editable="plain"
+            data-ohw-key="contact-submit-label"
+            data-ohw-href-key="contact-submit-href"
+            data-ohw-role="button"
+            data-ohw-drag-disabled="true"
+          >
+            {content.submitLabel}
+          </Button>
         </form>
       </Container>
     </section>
