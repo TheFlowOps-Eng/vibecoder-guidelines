@@ -50,7 +50,7 @@ Guidance:
 - **Array-rendered content** (paragraphs split from one string, mapped list items): tag the **wrapper**, not each child. See `AboutSplit.tsx` (`about-body`).
 - **Never nest an editable inside a `text` or `plain` editable** (**rule 4**, error): the outer one writes `innerHTML` and wipes the inner one. A `bg-image` or `image` container holding editable text is fine.
 - **Key every image** (**rule 5**, warn): an unkeyed `<img>`/`<Image>` is invisible to the AI and unavailable to generated sections. Images inside an `image`/`bg-image`/`icon` editable are exempt.
-- Do not rely on inline `style` on the editable element for text content; the editor saves and restores `innerHTML`. CSS classes are fine.
+- Do not rely on inline `style` on the editable element for text content; the editor saves and restores `innerHTML`. CSS classes are fine. Inline `text-align` **inside** an editable is a special case: the owner's own toolbar alignment is stored that way, and it deliberately outranks anything the style store writes above it (whoever aligned last wins). So an AI alignment ask CLEARS the inline `text-align` under the nodes it targets, as a one-time content edit. Align text with a class, not an inline style inside an editable, or a prompt may strip it.
 - Editables the bridge owns inside a React component that re-renders (state, timers, animation frames) get reset by React. Memoize the element (`useMemo`) or keep it out of the re-rendering subtree. (`ai-rerender-wipes-editables`, warn.)
 
 ---
