@@ -104,6 +104,7 @@ Destination on the anchor, label on an inner span, label mode **`text`**:
 - The starter's `Button` renders the trio for you: `<Button href={content.ctaHref} ohwKey="hero-cta">` ⇒ `hero-cta-href` on the link, `data-ohw-role="button"`, `data-ohw-drag-disabled="true"`, and `<span data-ohw-editable="text" data-ohw-key="hero-cta-label">`. Omit `ohwKey` for submit/onClick buttons.
 - Header CTA: `data-ohw-role="navbar-button"` + `data-ohw-drag-disabled="true"` (**rule 8** warns when the pair is incomplete). Logo root: `data-ohw-role="logo"`.
 - **At least one `button`/`navbar-button` role must exist in the template** (**rule 8**, error): `update_style` alignment finds the button's row through it and generated sections derive the template's button radius from it. No `logo` role is a warn. Roles emitted from an object spread (`{'data-ohw-role': 'button'}`) count.
+- A button's `data-ohw-href-key` is also its identity in the per-button style record (`__ohw_button_assignments`): both the editor's button Style panel and a prompt ("change this button to secondary") move that one button between the site's three looks — primary, secondary, ghost — by that key. A CTA with no href-key can be styled by neither. Prompt-driven variant changes need bridge **0.1.149**.
 - Generated hrefs are allowlisted to the site's real page paths and `#anchors`; internal links should use real routes.
 
 ---
