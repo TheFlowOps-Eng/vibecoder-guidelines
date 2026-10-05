@@ -4,7 +4,7 @@ Everything needed to build a template that the OhhWells canvas editor and the AI
 
 | Read | When |
 |---|---|
-| [1-SETUP.md](1-SETUP.md) | Starting a template: copy `starter/`, run it, configure env, publish. |
+| [1-SETUP.md](1-SETUP.md) | Starting a template: copy `starter/`, run it, configure env, publish. Also §7, publishing your own or a client's site instead of a marketplace template. |
 | [starter/](starter/) | The platform's starter template, synced automatically from the OhhWells templates repo. Copy it; do not edit it here. |
 | [2-CONVENTIONS.md](2-CONVENTIONS.md) | Writing any component: the `data-ohw-*` contract, keys, sections, links, brand tokens, forms, maps, carousels. |
 | [3-CHECKS.md](3-CHECKS.md) | Before publishing: build, the convention checker, the AI review (with your own Anthropic key), CI. |
