@@ -3,7 +3,7 @@
 ## Prerequisites
 
 - Node.js 18.17 or newer (20+ recommended), npm, git.
-- This repo cloned anywhere (`git clone https://github.com/TheFlowOps-Eng/vibecoder-guidelines.git`). The docs below call that folder `$GUIDE`.
+- This repo cloned anywhere (`git clone https://github.com/ohhwells/vibecoder-guidelines.git`). The docs below call that folder `$GUIDE`.
 - An OhhWells account, needed only at publish time (`npx ohhwells-deploy login`).
 - An Anthropic API key, needed only for the optional live AI review in [3-CHECKS.md](3-CHECKS.md). Never for building or for the checker.
 

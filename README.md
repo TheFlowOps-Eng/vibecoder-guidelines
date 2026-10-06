@@ -21,7 +21,7 @@ The checker exists because these failures never show up as broken builds. They s
 You have your template folder. This repo is the rulebook and the checker for it; it is the same tool the OhhWells team runs over the platform's own templates, so passing it here means passing it there.
 
 ```bash
-git clone https://github.com/TheFlowOps-Eng/vibecoder-guidelines.git   # anywhere, once
+git clone https://github.com/ohhwells/vibecoder-guidelines.git   # anywhere, once
 cd my-template                                                          # your template
 node /path/to/vibecoder-guidelines/check/run.mjs                        # checks this template
 ```
