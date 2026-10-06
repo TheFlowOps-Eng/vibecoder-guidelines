@@ -144,7 +144,7 @@ The checker is plain Node with no dependencies, so any CI can run it. Clone this
 - uses: actions/checkout@v4
 - uses: actions/checkout@v4
   with:
-    repository: TheFlowOps-Eng/vibecoder-guidelines
+    repository: ohhwells/vibecoder-guidelines
     path: .guidelines          # a dot-folder, so the checker never mistakes it for a template
 - uses: actions/setup-node@v4
   with:
